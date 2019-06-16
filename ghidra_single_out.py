@@ -1,10 +1,7 @@
 import os
 import sys
 import string
-
-#p = os.getcwd()
-#p = os.path.join(p,sys.argv[1])
-#example python ghidra_single_out.py /home/pi/Desktop/testing/a7cc7869eba384d53a54c5ad14776fb7818280eaddbe8a8872a2252c3af4e50a_ghidra /home/pi/Desktop/testing/
+#example python ghidra_single_out.py /home/pi/Desktop/testing/a7cc7869eba384d53a54c5ad14776fb7818280eaddbe8a8872a2252c3af4e50a_ghidra
 
 def is_hex(s):
     hex_digits = set(string.hexdigits)
@@ -77,9 +74,7 @@ def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
                     if prev_1 != None and prev_2 != None and current != None:
                         three_gram = (prev_2, prev_1, current)
                         insert_dictionary(three_gram, three_grams)
-        print assembly_instances_1
-        print assembly_instances_2
-        print assembly_instances_3
+
         #print grams
         #print assembly_instances
         one_gram_write(one_grams, path_name, "ghidra_hex_one_gram")
@@ -133,9 +128,13 @@ def get_dump(ghidra_file, path_name):
 def main():
     try:
         gfile = sys.argv[1]
-        pathname = sys.argv[2]
+        #pathname = sys.argv[2]
+        path = str(gfile)
+        path = path.split("/")
+        pathname = "/".join(path[:-1]) + "/"
+
     except:
-        print("Usage: python ghidra_single_out.py ghidra-file-path path-storing-ghidra")
+        print("Usage: python ghidra_single_out.py ghidra-file-path")
         exit(0)
     #data segment dump function    
     get_dump(gfile,pathname)
