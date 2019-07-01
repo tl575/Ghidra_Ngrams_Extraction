@@ -26,6 +26,9 @@ def two_gram_write(grams, path_name, name):
     f.close()
 
 def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
+    #list instead of hash table to create assembly dump
+    zero_gram = []
+
     one_grams = {}
     two_grams = {}
     three_grams = {}
@@ -48,6 +51,9 @@ def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
                     #print line
                     for name in assembly_names:
                         if name in line:
+
+                            zero_gram.append(name)
+
                             prev2_name = prev1_name
                             prev1_name = cur_name
                             cur_name = name
@@ -77,6 +83,8 @@ def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
 
         #print grams
         #print assembly_instances
+        zero_gram_write(zero_gram,path_name,"ghidra_assembly_zero_gram")
+
         one_gram_write(one_grams, path_name, "ghidra_hex_one_gram")
         two_gram_write(two_grams, path_name, "ghidra_hex_two_gram")
         three_gram_write(three_grams, path_name, "ghidra_hex_three_gram")
@@ -88,6 +96,12 @@ def three_gram_write(grams, path_name, name):
     f = open(path_name + name, "w+")
     for key, value in grams.items():
         f.write(key[0] + "," + key[1] + "," + key[2] + "," + str(value) + "\n")
+    f.close()
+
+def zero_gram_write(grams, path_name, name):
+    f = open(path_name + name, "w+")
+    for instruction in grams:
+        f.write(instruction+"\n")
     f.close()
 
 def create_assembly_list(assembly_file, assembly_dictionary):
