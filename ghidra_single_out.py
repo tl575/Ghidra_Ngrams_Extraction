@@ -28,6 +28,9 @@ def two_gram_write(grams, path_name, name):
 def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
     #list instead of hash table to create assembly dump
     zero_gram = []
+    hex_opcode = []
+    entire = []
+
 
     one_grams = {}
     two_grams = {}
@@ -53,6 +56,11 @@ def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
                         if name in line:
 
                             zero_gram.append(name)
+
+                            assembly_index = line.index(name)
+                            #argument_index = assembly_index + 1
+                            entire.append(line[assembly_index::])
+                            #entire.append(str(line[assembly_index]) + " "+str(line[argument_index]))
 
                             prev2_name = prev1_name
                             prev1_name = cur_name
@@ -83,7 +91,8 @@ def three_gram(ghidra_file, path_name, assembly_names, system_call_names):
 
         #print grams
         #print assembly_instances
-        zero_gram_write(zero_gram,path_name,"ghidra_assembly_zero_gram")
+        opcode_write(zero_gram,path_name,"ghidra_assembly_opcodes")
+        assembly_entire_write(entire, path_name, "ghidra_assembly_entire")
 
         one_gram_write(one_grams, path_name, "ghidra_hex_one_gram")
         two_gram_write(two_grams, path_name, "ghidra_hex_two_gram")
@@ -98,7 +107,15 @@ def three_gram_write(grams, path_name, name):
         f.write(key[0] + "," + key[1] + "," + key[2] + "," + str(value) + "\n")
     f.close()
 
-def zero_gram_write(grams, path_name, name):
+def assembly_entire_write(entire_list, path_name, name):
+    f = open(path_name + name, "w+")
+    for opcodes in entire_list:
+        mnemonic = str(opcodes[0])
+        args = " ".join((opcodes[1:]))
+        f.write(mnemonic+","+args+"\n")
+    f.close()
+
+def opcode_write(grams, path_name, name):
     f = open(path_name + name, "w+")
     for instruction in grams:
         f.write(instruction+"\n")
