@@ -1,6 +1,8 @@
 # Ghidra_Ngrams_Extraction
 Script used to develop ngram datasets from malware after they were exported through Ghidra 
 
+Assembly instruction references are based off of ARM architecture. Instruction sets were primary taken and referenced from http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204j/Cihedhif.html as all viruses compatible with a raspberry pi were ARM based.
+
 File format for ghidra export needs to be virusname_ghidra to successfully be parsed and generate ngram datasets
 Ran with Python 2.7
 
