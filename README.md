@@ -7,3 +7,15 @@ Ran with Python 2.7
 Usage: 
 
 python ghidra_single_out.py /home/pi/Desktop/testing/a7cc7869eba384d53a54c5ad14776fb7818280eaddbe8a8872a2252c3af4e50a_ghidra
+
+Report Outputs:
+
+* ghidra assembly mnemonics one gram
+* ghidra assembly mnemonics two gram
+* ghidra assembly mnemonics three gram
+* ghidra hexadecimal one gram
+* ghidra hexadecimal two gram
+* ghidra hexadecimal three gram
+* ghidra ds dump (system calls)
+* ghidra dump of mnemonics/opcodes
+* ghidra dump of entire assembly opcodes and argument
